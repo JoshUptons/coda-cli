@@ -184,7 +184,7 @@ module.exports = () => {
   program
     .name('coda')
     .description('CLI tool for retrieving coda data')
-    .version(process.env.VERSION)
+    .version('0.1.0')
 
   program
     .command('list')
@@ -203,6 +203,7 @@ module.exports = () => {
 
   program
     .command('list-tables')
+    .description('list all tables')
     .action(async () => {
       let response = await cc.getTables()
       for (let table of response.items) {
@@ -237,6 +238,7 @@ module.exports = () => {
 
   program
     .command('create-entity')
+    .description('create a new entity')
     .argument('<entityName>')
     .argument('[type]', 'optional. type of the entity')
     .action(async (name) => {
@@ -246,6 +248,7 @@ module.exports = () => {
 
   program
     .command('create-building')
+    .description('create a new building and entity')
     .argument('<name>', 'name of the building')
     .action(async (name) => {
       let newEntity = await cc.addRows('Entities', Rows([Row([Column('Name', name), Column('Type', 'Building')])]))
@@ -256,6 +259,7 @@ module.exports = () => {
 
   program
     .command('create-project')
+    .description('create a new project on a building entity')
     .argument('<project title>')
     .argument('[building name]', 'optional, if you know the name of the building entity')
     .action(async (project, building) => {
@@ -312,6 +316,7 @@ module.exports = () => {
 
   program
     .command('get-column')
+    .description('get a specific column of a given table')
     .argument('<table>', 'table name')
     .argument('<column>', 'the column name')
     .action(async (table, column) => {
